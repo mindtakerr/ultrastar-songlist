@@ -59,7 +59,7 @@
         {
             get
             {
-                return "<img style='height:50px;' src='" + ImageURL + "' alt='" + Title + "'  />'";
+                return "<img style='height:50px;' src='" + ImageURL + "' alt='" + Title + "' title='" + Title + "' />'";
             }
         }
 
