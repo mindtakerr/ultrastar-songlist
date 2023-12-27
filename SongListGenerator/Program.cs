@@ -14,7 +14,7 @@ namespace SongListGenerator
             string body = CreateSongTableBody(SongList);
             string ShellHTML = File.ReadAllText("shell.html", Encoding.UTF8);
             string OutputHTML = ShellHTML.Replace("-- Will Be Replaced --", body);
-            File.WriteAllText(OUTPUT_DIR+"\\index.html", OutputHTML, Encoding.UTF8);
+            File.WriteAllText(OUTPUT_DIR + "\\index.html", OutputHTML, Encoding.UTF8);
         }
 
         private static string CreateSongTableBody(List<UltraStarSong> SongList)
@@ -24,12 +24,14 @@ namespace SongListGenerator
             {
                 TableHTML.Append("<tr>");
                 TableHTML.Append("<td></td>");
-                TableHTML.Append("<td>" + song.ImageHTML+"</td>");
+                TableHTML.Append("<td>" + song.ImageHTML + "</td>");
                 TableHTML.Append("<td>" + song.Artist + "</td>");
                 TableHTML.Append("<td>" + song.TitlePlusDuet + "</td>");
                 TableHTML.Append("<td>" + song.Year + "</td>");
                 TableHTML.Append("<td>" + song.Decade + "</td>");
+                TableHTML.Append("<td>" + song.usdbHTML + "</td>");
                 TableHTML.Append("</tr>");
+                TableHTML.AppendLine();
             }
 
             return TableHTML.ToString();

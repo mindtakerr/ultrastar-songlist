@@ -30,7 +30,15 @@
                     { data: 'artist' },
                     { data: 'title' },
                     { data: 'year' },
-                    { data: 'decade' }
+                    { data: 'decade' },
+                    { data:'usdbHTML'}
+                ],
+                columnDefs: [
+                    {
+                        target: 6,
+                        visible: false,
+                        searchable: false
+                    },
                 ],
                 "pageLength": 25,
             });
@@ -55,22 +63,30 @@
 
         function format(d) {
             // `d` is the original data object for the row
+            var img = d.imageHTML;
+
             return (
-                '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                '<tr>' +
-                '<td colspan="2">' +
-                d.imageHTML +
-                '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '<td>' +
-                'Artist' +
-                '</td>' +
-                '<td>' +
+                '<div class="container" style="padding-left:50px;">'+                
+                '<div class="row">' +
+                '<div class="col">' +
+                img.replace('height:50px;','height:200px;')+
+                '</div>' +
+                '<div class="col">' +
+                '<h2>' +
+                d.title +
+                '</h2>' +
+                '<h5>by ' +
                 d.artist +
-                '</td>' +
-                '</tr>' +
-                '</table>'
+                '</h5>' +
+                '<h5>Released in ' +
+                d.year +
+                '</h5>' +
+                '<h5>' +
+                d.usdbHTML +
+                '</h5>' +
+                '</div>' +             
+                '</div>' +
+                '</div>'
             );
         }
     </script>
@@ -91,6 +107,7 @@
                 <th>Title</th>
                 <th>Year</th>
                 <th>Decade</th>
+                <th>USDB</th>
             </tr>
         </thead>
         <tbody>
@@ -104,6 +121,7 @@
                 <th>Title</th>
                 <th>Year</th>
                 <th>Decade</th>
+                <th>USDB</th>
             </tr>
         </tfoot>
     </table>

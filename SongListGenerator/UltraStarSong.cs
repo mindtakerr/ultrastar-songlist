@@ -63,6 +63,13 @@
             }
         }
 
-       
+        public string usdbHTML
+        {
+            get
+            {
+                return "<a target='_blank' href='https://usdb.animux.de/index.php?link=detail&id=" + USDB_ID + "'>View on USDB</a>";
+            }
+        }
+
     }
 }
