@@ -85,11 +85,12 @@ namespace SongListGenerator
                     song.USDB_ID = int.Parse(Path.GetFileNameWithoutExtension(usdb_file));
 
                 string cover_file = Directory.GetFiles(Dir, "*").FirstOrDefault(x => x.Contains("[CO]"));
-                if (cover_file == null|| cover_file.Length > 260)
+                if (cover_file == null || cover_file.Length > 260)
                 {
                     if (cover_file != null)
                         Console.WriteLine(song.title + " full path is " + cover_file.Length + " characters. Defaulting to USDB URL.");
                     song.imageHTML = "https://usdb.animux.de/data/cover/" + song.USDB_ID + ".jpg";
+                    song.imageHTML = "<img style='height:50px;' src='" + song.imageHTML + "' alt='" + song.title + "' title='" + song.title + "' />'";
                 }
                 else
                 {
