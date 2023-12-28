@@ -2,64 +2,57 @@
 {
     public class UltraStarSong
     {
-        public string Artist { get; set; }
-        public string Title { get; set; }
-        public int? Year { get; set; }
+        public string artist { get; set; }
+        public string title { get; set; }
+        public int? year { get; set; }
         public int? USDB_ID { get; set; }
         public bool IsDuet { get; set; }
 
-        public string SortableArtist
+        public string sortableArtist
         {
             get
             {
-                if (Artist.StartsWith("The "))
-                    return Artist.Replace("The ", string.Empty);
-                return Artist;
+                if (artist.StartsWith("The "))
+                    return artist.Replace("The ", string.Empty);
+                return artist;
             }
         }
-        public string SortableTitle
+        public string sortableTitle
         {
             get
             {
-                if (Title.StartsWith("The "))
-                    return Title.Replace("The ", string.Empty);
-                return Title;
+                if (title.StartsWith("The "))
+                    return title.Replace("The ", string.Empty);
+                return title;
             }
         }
 
-        public string Decade
+        public string decade
         {
             get
             {
-                if (Year.HasValue)
-                    return Year.Value.ToString().Substring(0, 3) + "0s";
+                if (year.HasValue)
+                    return year.Value.ToString().Substring(0, 3) + "0s";
                 return string.Empty;
             }
         }
 
-        public string TitlePlusDuet
+        public string titlePlusDuet
         {
             get
             {
                 if (IsDuet)
-                    return Title + " (DUET)";
-                return Title;
+                    return title + " (DUET)";
+                return title;
             }
         }
-
-        public string ImageURL
+        
+        public string imageHTML
         {
             get
             {
-                return "https://usdb.animux.de/data/cover/" + USDB_ID + ".jpg";
-            }
-        }
-
-        public string ImageHTML
-        {
-            get
-            {
-                return "<img style='height:50px;' src='" + ImageURL + "' alt='" + Title + "' title='" + Title + "' />'";
+                string imageURL = "https://usdb.animux.de/data/cover/" + USDB_ID + ".jpg";
+                return "<img style='height:50px;' src='" + imageURL + "' alt='" + title + "' title='" + title + "' />'";
             }
         }
 

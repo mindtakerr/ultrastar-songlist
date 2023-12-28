@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>UltraStar Song List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
 </head>
 <body>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
 
     <script type="text/javascript">
 
         $(document).ready(function () {
 
-            var table = $('#songTable').DataTable({               
+            var table = $('#songTable').DataTable({
+                ajax: 'songlist.json',
                 columns: [
                     {
                         className: 'dt-control',
@@ -30,15 +30,7 @@
                     { data: 'artist' },
                     { data: 'title' },
                     { data: 'year' },
-                    { data: 'decade' },
-                    { data:'usdbHTML'}
-                ],
-                columnDefs: [
-                    {
-                        target: 6,
-                        visible: false,
-                        searchable: false
-                    },
+                    { data: 'decade' }
                 ],
                 "pageLength": 25,
             });
@@ -66,10 +58,10 @@
             var img = d.imageHTML;
 
             return (
-                '<div class="container" style="padding-left:50px;">'+                
+                '<div class="container" style="padding-left:50px;">' +
                 '<div class="row">' +
                 '<div class="col">' +
-                img.replace('height:50px;','height:200px;')+
+                img.replace('height:50px;', 'height:200px;') +
                 '</div>' +
                 '<div class="col">' +
                 '<h2>' +
@@ -84,7 +76,7 @@
                 '<h5>' +
                 d.usdbHTML +
                 '</h5>' +
-                '</div>' +             
+                '</div>' +
                 '</div>' +
                 '</div>'
             );
@@ -98,34 +90,33 @@
         &nbsp;
     </p>
 
-    <table id="songTable" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Cover</th>
-                <th>Artist</th>
-                <th>Title</th>
-                <th>Year</th>
-                <th>Decade</th>
-                <th>USDB</th>
-            </tr>
-        </thead>
-        <tbody>
-            -- Will Be Replaced --
-        </tbody>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th>Cover</th>
-                <th>Artist</th>
-                <th>Title</th>
-                <th>Year</th>
-                <th>Decade</th>
-                <th>USDB</th>
-            </tr>
-        </tfoot>
-    </table>
-
+    <div class="container" style="width:75%">
+        <table id="songTable" class="display">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Cover</th>
+                    <th>Artist</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Decade</th>
+                </tr>
+            </thead>
+            <!--<tbody>
+                -- Will Be Replaced --
+            </tbody>-->
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th>Cover</th>
+                    <th>Artist</th>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Decade</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 
 </body>
 </html>

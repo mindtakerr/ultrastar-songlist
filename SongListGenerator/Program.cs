@@ -6,15 +6,17 @@ namespace SongListGenerator
     internal class Program
     {
         static string ULTRASTAR_SONG_DIR = @"C:\Program Files (x86)\UltraStar WorldParty\songs";
-        static string OUTPUT_DIR = @"C:\Users\Graph\OneDrive\Excel to Google Sheets";
+        static string OUTPUT_DIR = @"C:\Users\Graph\source\repos\mindtakerr.github.io";
 
         static void Main(string[] args)
         {
-            var SongList = CreateListOfSongs();
-            string body = CreateSongTableBody(SongList);
+            //var SongList = CreateListOfSongs();
+            //string body = CreateSongTableBody(SongList);
             string ShellHTML = File.ReadAllText("shell.html", Encoding.UTF8);
-            string OutputHTML = ShellHTML.Replace("-- Will Be Replaced --", body);
-            File.WriteAllText(OUTPUT_DIR + "\\index.html", OutputHTML, Encoding.UTF8);
+            //string OutputHTML = ShellHTML.Replace("-- Will Be Replaced --", body);
+            File.WriteAllText(OUTPUT_DIR + "\\index.html", ShellHTML, Encoding.UTF8);
+            File.WriteAllText(OUTPUT_DIR + "\\songlist.json", CreateJsonOfSongs(), Encoding.UTF8);
+
         }
 
         private static string CreateSongTableBody(List<UltraStarSong> SongList)
@@ -24,11 +26,11 @@ namespace SongListGenerator
             {
                 TableHTML.Append("<tr>");
                 TableHTML.Append("<td></td>");
-                TableHTML.Append("<td>" + song.ImageHTML + "</td>");
-                TableHTML.Append("<td>" + song.Artist + "</td>");
-                TableHTML.Append("<td>" + song.TitlePlusDuet + "</td>");
-                TableHTML.Append("<td>" + song.Year + "</td>");
-                TableHTML.Append("<td>" + song.Decade + "</td>");
+                TableHTML.Append("<td>" + song.imageHTML + "</td>");
+                TableHTML.Append("<td>" + song.artist + "</td>");
+                TableHTML.Append("<td>" + song.titlePlusDuet + "</td>");
+                TableHTML.Append("<td>" + song.year + "</td>");
+                TableHTML.Append("<td>" + song.decade + "</td>");
                 TableHTML.Append("<td>" + song.usdbHTML + "</td>");
                 TableHTML.Append("</tr>");
                 TableHTML.AppendLine();
@@ -57,16 +59,16 @@ namespace SongListGenerator
                 string yearline = lines.SingleOrDefault(x => x.StartsWith("#YEAR"));
                 if (yearline == null)
                 {
-                    song.Year = null;
+                    song.year = null;
                 }
                 else
-                    song.Year = int.Parse(yearline.Split(':')[1].Substring(0, 4));
+                    song.year = int.Parse(yearline.Split(':')[1].Substring(0, 4));
 
                 string artistLine = lines.SingleOrDefault(x => x.StartsWith("#ARTIST"));
-                song.Artist = artistLine.Split(':')[1];
+                song.artist = artistLine.Split(':')[1];
 
                 string titleLine = lines.SingleOrDefault(x => x.StartsWith("#TITLE"));
-                song.Title = titleLine.Split(':')[1];
+                song.title = titleLine.Split(':')[1];
 
                 string duetLine = lines.SingleOrDefault(x => x.ToUpper().Contains("DUET") && x.ToUpper().Contains("EDITION"));
                 if (!string.IsNullOrEmpty(duetLine))
@@ -81,14 +83,15 @@ namespace SongListGenerator
                 songs.Add(song);
             }
 
-            songs = songs.OrderBy(x => x.SortableArtist).ThenBy(x => x.SortableTitle).ToList();
+            songs = songs.OrderBy(x => x.sortableArtist).ThenBy(x => x.sortableTitle).ToList();
             return songs;
         }
 
         private static string CreateJsonOfSongs()
         {
             var songs = CreateListOfSongs();
-            return JsonConvert.SerializeObject(songs, Formatting.Indented);
+            var ToReturn = new {data =  songs};
+            return JsonConvert.SerializeObject(ToReturn, Formatting.Indented) ;
         }
     }
 }
