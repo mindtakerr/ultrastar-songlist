@@ -1,4 +1,7 @@
-﻿namespace SongListGenerator
+﻿using Newtonsoft.Json;
+using System.Drawing;
+
+namespace SongListGenerator
 {
     public class UltraStarSong
     {
@@ -7,6 +10,8 @@
         public int? year { get; set; }
         public int? USDB_ID { get; set; }
         public bool IsDuet { get; set; }
+        
+        public string imageHTML { get; set; }
 
         public string sortableArtist
         {
@@ -46,16 +51,7 @@
                 return title;
             }
         }
-        
-        public string imageHTML
-        {
-            get
-            {
-                string imageURL = "https://usdb.animux.de/data/cover/" + USDB_ID + ".jpg";
-                return "<img style='height:50px;' src='" + imageURL + "' alt='" + title + "' title='" + title + "' />'";
-            }
-        }
-
+                
         public string usdbHTML
         {
             get
